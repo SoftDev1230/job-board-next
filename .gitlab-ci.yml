@@ -1,0 +1,39 @@
+image: starefossen/ruby-node:latest
+
+stages:
+  - build # install all npm dependencies
+  - test # just lint check
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+npm_Install:
+    stage: build
+    script:
+        - npm install
+    # artifacts describe the result of the stage
+    # that can be used in consecutive stages
+    artifacts:
+      untracked: true
+
+linter_code_check:
+  stage: test
+  script:
+      - npm run precommit
+
+Deploy_To_UAT:
+  stage: deploy
+  # use the artifcats of the 'npmInstall' job 
+  dependencies:
+      - npm_Install
+  script:
+    - apt-get update -qy
+    #- apt-add-repository ppa:brightbox/ruby-ng 
+    #- apt-get update
+    #- apt-get install ruby2.5 ruby2.5-dev
+    - gem install dpl && gem install faraday -v 1.8.0
+    - dpl --provider=heroku --app=unnanu-jobportal-uat --api-key=$HEROKU_API_KEY
+  only:
+    - uat

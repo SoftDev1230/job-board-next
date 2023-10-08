@@ -1,0 +1,15 @@
+https://unnanu.search.windows.net/indexes/job-board-uat/docs?api-version=2017-11-11&search=*&$top=2&$orderby=updated_time desc
+- Show only top 2
+
+https://unnanu.search.windows.net/indexes/job-board-uat/docs?api-version=2017-11-11&search=*&$skip=2&$top=2&$orderby=updated_time desc
+- Skip 2 and show only 2
+
+
+https://unnanu.search.windows.net/indexes/job-board-uat/docs?api-version=2017-11-11&search=*&$filter category eq 'Austin, TX'
+- Search Location
+
+https://unnanu.search.windows.net/indexes/job-board-uat/docs/2?api-version=2017-11-11
+- Individual Doc replace 2 with id
+
+https://unnanu.search.windows.net/indexes/job-board-uat/docs?moreLikeThis=664&searchFields=j_title&api-version=2016-09-01-Preview
+- Similar Jobs
